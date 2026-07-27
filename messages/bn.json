@@ -1,0 +1,30 @@
+{
+  "Navigation": {
+    "home": "প্রচ্ছদ",
+    "national": "জাতীয়",
+    "international": "আন্তর্জাতিক",
+    "special_report": "বিশেষ প্রতিবেদন",
+    "entertainment": "বিনোদন",
+    "nationwide": "দেশজুড়ে",
+    "sports": "খেলা",
+    "lifestyle": "লাইফস্টাইল",
+    "expatriate": "প্রবাস",
+    "video": "ভিডিও",
+    "photo": "ছবি",
+    "politics": "রাজনীতি",
+    "economy": "অর্থনীতি",
+    "jobs": "চাকরি",
+    "technology": "তথ্যপ্রযুক্তি",
+    "education": "শিক্ষা",
+    "social_media": "সোশ্যাল মিডিয়া",
+    "more": "আরও",
+    "search": "খুঁজুন"
+  },
+  "Common": {
+    "readMore": "আরও পড়ুন",
+    "latestNews": "সর্বশেষ খবর",
+    "featured": "প্রধান খবর",
+    "videos": "ভিডিও",
+    "allNews": "সকল খবর"
+  }
+}

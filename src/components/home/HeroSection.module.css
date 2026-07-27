@@ -1,0 +1,36 @@
+.heroSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mainFeature {
+  /* Main feature will take up the left column */
+}
+
+.mainFeature :global(.title) {
+  font-size: 28px; /* Make title bigger for hero */
+}
+
+.sideArticles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sideArticleWrapper {
+  border-bottom: 1px solid var(--secondary);
+  padding-bottom: 16px;
+}
+
+.sideArticleWrapper:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}

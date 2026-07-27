@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Politicst - Modern News Portal
 
-## Getting Started
+A modern, fast, and fully responsive news portal built with **Next.js (App Router)** and **MongoDB**. It features bilingual support (Bangla & English), a dedicated Admin Panel, and dynamic news categorization.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **🌐 Bilingual Support**: Seamlessly switch between Bangla (BN) and English (EN) using `next-intl`.
+- **📰 Categorized News Sections**: National, International, Politics, Economy, Sports, Entertainment, Lifestyle, Video, and Photo galleries.
+- **⚡ Fast & Modern**: Built on the latest Next.js 14 App Router for Server-Side Rendering (SSR) and optimal SEO.
+- **🛠️ Admin Panel**: Secure, custom admin dashboard to create, edit, delete, and manage articles and categories.
+- **🎨 Custom UI/UX**: Premium navy blue theme with fully responsive mobile and desktop layouts using vanilla CSS modules.
+- **🔍 Search & Filter**: Real-time article searching and filtering in the admin panel.
+- **📱 Responsive Design**: Works beautifully across all devices with custom interactive components like carousels and sticky headers.
+- **🔔 Push Notifications**: Built-in support for prompt-based push notifications.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 14](https://nextjs.org/) (React)
+- **Database**: [MongoDB](https://www.mongodb.com/) & [Mongoose](https://mongoosejs.com/)
+- **Styling**: Pure CSS (CSS Modules)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (v18 or higher)
+- MongoDB Database (Local or Atlas)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/EasinArafatDeveloper/the-politicst-dot-com.git
+   cd the-politicst-dot-com
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Set up Environment Variables**
+   Create a `.env.local` file in the root directory and add your MongoDB URI:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## 📂 Project Structure
+
+- `/src/app/[locale]` - Contains the main Next.js App Router pages for internationalization.
+- `/src/components` - Reusable UI components (Header, Footer, NewsGrids, Admin, etc).
+- `/src/models` - Mongoose database schemas.
+- `/src/app/api` - Next.js backend API routes for CRUD operations.
+
+## 👨‍💻 Admin Panel
+
+Access the admin panel at `/admin` to manage articles. The admin dashboard allows for bilingual content entry, custom image uploads, slug customization, and assigning categories/sections.

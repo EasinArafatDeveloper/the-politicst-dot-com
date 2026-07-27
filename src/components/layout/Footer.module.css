@@ -1,0 +1,134 @@
+.footer {
+  background-color: #06142e; /* Deep Navy Blue matching the theme */
+  color: #d1d5db;
+  padding: 60px 0 20px 0;
+  margin-top: 80px;
+  border-top: 4px solid var(--primary);
+  font-family: var(--font-sans);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.topSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 1024px) {
+  .topSection {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .topSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.tagline {
+  line-height: 1.6;
+  font-size: 15px;
+  margin-bottom: 24px;
+  color: #9ca3af;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 16px;
+}
+
+.socialIcons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #0d2146; /* Slightly lighter navy for icons */
+  border-radius: 50%;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.socialIcons a:hover {
+  background-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.linksSection h3, .contactSection h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #ffffff;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.linksSection h3::after, .contactSection h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--primary);
+}
+
+.links li {
+  margin-bottom: 12px;
+}
+
+.links a {
+  color: #9ca3af;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.links a:hover {
+  color: #ffffff;
+  transform: translateX(5px); /* Subtle shift effect on hover */
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contactList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #9ca3af;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.contactIcon {
+  color: #ffffff; /* White color for visibility on dark background */
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bottomSection {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid #14305c; /* Navy blue separator */
+  font-size: 14px;
+  color: #6b7280;
+}

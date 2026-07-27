@@ -1,0 +1,268 @@
+.header {
+  width: 100%;
+  background-color: var(--background);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.topBar {
+  background-color: var(--secondary);
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #eaeaea;
+  color: #555;
+}
+
+.topBarLeft, .topBarRight {
+  display: flex;
+  align-items: center;
+}
+
+.logoArea {
+  padding: 24px 0;
+  text-align: center;
+  background-color: var(--background);
+}
+
+.logoArea .container {
+  justify-content: center;
+}
+
+.logo {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.logoThe {
+  color: #001a4d;
+}
+
+.logoPolitics {
+  color: #e60000;
+}
+
+.navbar {
+  background-color: var(--primary);
+  border-top: 1px solid var(--primary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.navLinks {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.navLinks li {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Add a vertical separator between menu items */
+.navLinks li:not(:last-child)::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin-left: 4px;
+  margin-right: -4px; /* offset the gap slightly */
+}
+
+.navLinks a {
+  display: block;
+  padding: 16px 16px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  transition: color 0.3s;
+  position: relative;
+}
+
+/* Elegant underline hover and active effect */
+.navLinks a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Align with navbar bottom */
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: #ffffff; /* White underline on purple background */
+  transition: width 0.3s ease;
+}
+
+.navLinks a:hover, .navLinks a.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navLinks a:hover::after, .navLinks a.active::after {
+  width: 100%;
+}
+
+.dropdownContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 16px 16px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  font-family: inherit;
+  transition: color 0.3s;
+}
+
+.menuButton:hover {
+  color: #ffffff;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--primary); /* Full purple background */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  border: none;
+  border-radius: 0 0 8px 8px;
+  min-width: 220px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.dropdownMenu li {
+  display: block;
+  width: 100%;
+}
+
+.dropdownMenu a {
+  padding: 12px 24px;
+  font-weight: 500;
+  font-size: 15px;
+  color: #ffffff; /* White text */
+}
+
+/* Override underline effect for dropdown items */
+.dropdownMenu a::after {
+  display: none;
+}
+
+.dropdownMenu a:hover, .dropdownMenu a.active {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle white highlight */
+  color: #ffffff;
+  padding-left: 28px; /* Slight indent on hover */
+  transition: all 0.2s;
+}
+
+.searchContainer {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.searchToggleButton {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: transform 0.2s;
+}
+
+.searchToggleButton:hover {
+  transform: scale(1.1);
+}
+
+.searchForm {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px; /* Slightly more rounded */
+  padding: 6px 16px; /* More padding */
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15); /* Softer, larger shadow */
+  z-index: 150;
+  border: 1px solid #eaeaea;
+  width: 300px; /* Much wider */
+}
+
+.searchForm:focus-within {
+  box-shadow: 0 8px 35px rgba(0,0,0,0.2);
+  transform: translateY(-1px);
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  color: #333333;
+  padding: 8px 12px;
+  width: 100%; /* Take up available space */
+  outline: none;
+  font-size: 16px; /* Larger font size */
+  font-weight: 500;
+}
+
+.searchInput::placeholder {
+  color: #888888;
+  font-weight: 400;
+}
+
+.searchButton {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: transform 0.2s;
+  border-radius: 50%; /* Make button circular for hover effect */
+}
+
+.searchButton:hover {
+  transform: scale(1.1);
+  background-color: rgba(0,0,0,0.05); /* Subtle hover background */
+}

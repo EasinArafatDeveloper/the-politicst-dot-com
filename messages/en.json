@@ -1,0 +1,30 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "national": "National",
+    "international": "International",
+    "special_report": "Special Report",
+    "entertainment": "Entertainment",
+    "nationwide": "Nationwide",
+    "sports": "Sports",
+    "lifestyle": "Lifestyle",
+    "expatriate": "Expatriate",
+    "video": "Video",
+    "photo": "Photo",
+    "politics": "Politics",
+    "economy": "Economy",
+    "jobs": "Jobs",
+    "technology": "Technology",
+    "education": "Education",
+    "social_media": "Social Media",
+    "more": "More",
+    "search": "Search"
+  },
+  "Common": {
+    "readMore": "Read More",
+    "latestNews": "Latest News",
+    "featured": "Featured",
+    "videos": "Videos",
+    "allNews": "All News"
+  }
+}

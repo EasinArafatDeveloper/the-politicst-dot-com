@@ -9,14 +9,19 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "date-bengali-revised": "^2.0.2",
+    "lucide-react": "^1.27.0",
+    "mongoose": "^9.8.0",
     "next": "16.2.12",
+    "next-intl": "^4.13.4",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hot-toast": "^2.6.0",
+    "sweetalert2": "^11.26.25",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "16.2.12",
-    "tailwindcss": "^4"
+    "eslint-config-next": "16.2.12"
   }
 }

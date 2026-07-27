@@ -1,0 +1,85 @@
+.overlay {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  z-index: 9999;
+  width: 320px;
+  border: 1px solid #eaeaea;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.icon {
+  color: var(--primary);
+  background: #f3f0fa;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+.description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.allowBtn, .denyBtn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.allowBtn {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.allowBtn:hover {
+  opacity: 0.9;
+}
+
+.denyBtn {
+  background-color: #f1f1f1;
+  color: #555;
+}
+
+.denyBtn:hover {
+  background-color: #e5e5e5;
+}
