@@ -156,6 +156,25 @@
 
 @media (max-width: 480px) {
   .grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 8px; /* space for scrollbar */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+  
+  .prevButton, .nextButton {
+    display: none; /* Hide nav buttons on mobile where users can swipe */
   }
 }

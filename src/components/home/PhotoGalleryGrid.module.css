@@ -111,19 +111,19 @@
 }
 
 @media (max-width: 1024px) {
-  .grid {
+  .smallPhotosGrid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .grid {
+  .smallPhotosGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  .grid {
+  .smallPhotosGrid {
     grid-template-columns: 1fr;
   }
 }

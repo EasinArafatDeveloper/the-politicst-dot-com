@@ -101,7 +101,17 @@ export default function Header() {
             <li><Link href="/category/entertainment" className={isActive('/category/entertainment')}>{t('entertainment')}</Link></li>
             <li><Link href="/category/sports" className={isActive('/category/sports')}>{t('sports')}</Link></li>
             
-            <li className={styles.dropdownContainer}>
+            {/* Mobile Only Links (Hidden on Desktop) */}
+            <li className={styles.mobileOnlyLink}><Link href="/category/nationwide" className={isActive('/category/nationwide')}>{t('nationwide')}</Link></li>
+            <li className={styles.mobileOnlyLink}><Link href="/category/lifestyle" className={isActive('/category/lifestyle')}>{t('lifestyle')}</Link></li>
+            <li className={styles.mobileOnlyLink}><Link href="/category/expatriate" className={isActive('/category/expatriate')}>{t('expatriate')}</Link></li>
+            <li className={styles.mobileOnlyLink}><Link href="/category/technology" className={isActive('/category/technology')}>{t('technology')}</Link></li>
+            <li className={styles.mobileOnlyLink}><Link href="/category/education" className={isActive('/category/education')}>{t('education')}</Link></li>
+            <li className={styles.mobileOnlyLink}><Link href="/category/jobs" className={isActive('/category/jobs')}>{t('jobs')}</Link></li>
+            <li className={styles.mobileOnlyLink}><Link href="/category/social-media" className={isActive('/category/social-media')}>{t('social_media')}</Link></li>
+            
+            {/* Desktop Only Dropdown (Hidden on Mobile) */}
+            <li className={`${styles.dropdownContainer} ${styles.desktopOnlyDropdown}`}>
               <button 
                 className={styles.menuButton} 
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
