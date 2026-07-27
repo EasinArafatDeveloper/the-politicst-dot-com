@@ -4,6 +4,8 @@ import Header from './Header';
 import Footer from './Footer';
 import PushNotificationPrompt from '../ui/PushNotificationPrompt';
 
+import BreakingNewsTicker from '../ui/BreakingNewsTicker';
+
 export default function SiteLayout({ children }) {
   const pathname = usePathname();
   const isAdmin = pathname && pathname.includes('/admin');
@@ -15,6 +17,7 @@ export default function SiteLayout({ children }) {
   return (
     <>
       <Header />
+      <BreakingNewsTicker />
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 16px', minHeight: '60vh' }}>
         {children}
       </div>

@@ -168,6 +168,7 @@ export default function PostEditor() {
               <option value="latest">Latest (সর্বশেষ)</option>
               <option value="featured">Featured (প্রধান খবর)</option>
               <option value="trending">Trending (ট্রেন্ডিং)</option>
+              <option value="breaking">Breaking News (ব্রেকিং নিউজ)</option>
             </select>
           </div>
           <div>

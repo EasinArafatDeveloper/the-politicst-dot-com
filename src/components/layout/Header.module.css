@@ -67,8 +67,7 @@
 .navLinks {
   display: flex;
   gap: 8px;
-  width: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   margin: 0;
@@ -188,10 +187,7 @@
 }
 
 .searchContainer {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
   display: flex;
   align-items: center;
 }
