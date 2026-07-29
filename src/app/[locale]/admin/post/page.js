@@ -178,7 +178,7 @@ export default function PostEditor() {
               <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} required style={{ ...inputStyle, marginTop: 0, flex: 1 }} placeholder="https://... or upload a file" />
             </div>
             {uploadingImage && <small style={{ color: 'var(--primary)', display: 'block', marginTop: '5px' }}>Uploading image...</small>}
-            {formData.imageUrl && formData.imageUrl.startsWith('/uploads/') && <small style={{ color: 'green', display: 'block', marginTop: '5px' }}>✓ Image uploaded successfully</small>}
+            {formData.imageUrl && <small style={{ color: 'green', display: 'block', marginTop: '5px' }}>✓ Image uploaded successfully</small>}
           </div>
           <div>
             <label>Custom Slug (Optional)</label>
