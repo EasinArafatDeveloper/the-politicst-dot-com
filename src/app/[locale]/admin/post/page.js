@@ -46,29 +46,91 @@ export default function PostEditor() {
     }
   };
 
+const compressImage = (file, maxWidth = 1200, maxHeight = 800, quality = 0.8) => {
+  return new Promise((resolve) => {
+    if (!file || !file.type.startsWith('image/') || file.type === 'image/gif' || file.type === 'image/svg+xml') {
+      return resolve(file);
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+        if (height > maxHeight) {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            } else {
+              resolve(file);
+            }
+          },
+          'image/jpeg',
+          quality
+        );
+      };
+      img.onerror = () => resolve(file);
+    };
+    reader.onerror = () => resolve(file);
+  });
+};
+
   const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploadingImage(true);
-    const dataForm = new FormData();
-    dataForm.append('file', file);
 
     try {
+      // Fast client-side image compression (reduces 5MB image to ~200KB)
+      const compressedFile = await compressImage(file);
+
+      const dataForm = new FormData();
+      dataForm.append('file', compressedFile);
+
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: dataForm
       });
+
+      if (!res.ok) {
+        throw new Error(`Server returned status ${res.status}`);
+      }
+
       const data = await res.json();
-      if (data.success) {
+      if (data.success && data.url) {
         setFormData(prev => ({ ...prev, imageUrl: data.url }));
         toast.success('Image uploaded successfully');
       } else {
-        toast.error('Upload failed: ' + data.error);
+        toast.error('Upload failed: ' + (data.error || 'Unknown error'));
       }
     } catch (error) {
       console.error(error);
-      toast.error('Failed to upload image.');
+      toast.error('Failed to upload image: ' + error.message);
     } finally {
       setUploadingImage(false);
     }

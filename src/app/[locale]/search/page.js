@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getTranslations } from 'next-intl/server';
 import dbConnect from '@/lib/dbConnect';
 import Article from '@/models/Article';
