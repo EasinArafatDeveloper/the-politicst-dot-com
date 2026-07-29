@@ -8,7 +8,65 @@ import { Share2 } from 'lucide-react';
 import dbConnect from '@/lib/dbConnect';
 import Article from '@/models/Article';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://thepoliticst.com';
+
 export const dynamic = 'force-dynamic';
+
+async function fetchArticleForMetadata(slug) {
+  await dbConnect();
+  return Article.findOne({ slug }).lean();
+}
+
+export async function generateMetadata({ params }) {
+  const { slug, locale } = await params;
+  const rawArticle = await fetchArticleForMetadata(slug);
+
+  if (!rawArticle) {
+    return { title: 'Article Not Found' };
+  }
+
+  const title = rawArticle.title?.[locale] || rawArticle.title?.['bn'] || 'News Article';
+  const excerpt = rawArticle.excerpt?.[locale] || rawArticle.excerpt?.['bn'] || '';
+  const description = excerpt.replace(/<[^>]*>?/gm, '').slice(0, 160);
+  const imageUrl = rawArticle.imageUrl || `${SITE_URL}/favicon.ico`;
+  const authorName = rawArticle.author || 'The Politicst Desk';
+
+  return {
+    title,
+    description,
+    authors: [{ name: authorName }],
+    keywords: [rawArticle.category, 'The Politicst', 'News', title],
+    alternates: {
+      canonical: `/${locale}/article/${slug}`,
+      languages: {
+        'bn-BD': `/bn/article/${slug}`,
+        'en-US': `/en/article/${slug}`,
+      },
+    },
+    openGraph: {
+      title: `${title} | The Politicst`,
+      description,
+      url: `/${locale}/article/${slug}`,
+      type: 'article',
+      publishedTime: rawArticle.publishedAt ? new Date(rawArticle.publishedAt).toISOString() : undefined,
+      modifiedTime: rawArticle.updatedAt ? new Date(rawArticle.updatedAt).toISOString() : (rawArticle.publishedAt ? new Date(rawArticle.publishedAt).toISOString() : undefined),
+      authors: [authorName],
+      section: rawArticle.category,
+      images: [
+        {
+          url: imageUrl,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | The Politicst`,
+      description,
+      images: [imageUrl],
+    },
+  };
+}
 
 async function getArticleBySlug(slug) {
   await dbConnect();
@@ -64,8 +122,68 @@ export default async function ArticlePage({ params }) {
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
   const formattedDate = new Date(article.publishedAt).toLocaleDateString(locale === 'bn' ? 'bn-BD' : 'en-US', dateOptions);
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: article.title,
+    description: (article.excerpt || '').replace(/<[^>]*>?/gm, '').slice(0, 200),
+    image: [article.imageUrl],
+    datePublished: article.publishedAt ? new Date(article.publishedAt).toISOString() : undefined,
+    dateModified: article.updatedAt ? new Date(article.updatedAt).toISOString() : (article.publishedAt ? new Date(article.publishedAt).toISOString() : undefined),
+    author: {
+      '@type': 'Person',
+      name: article.author || 'The Politicst Desk',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'The Politicst',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/favicon.ico`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/${locale}/article/${slug}`,
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: locale === 'bn' ? 'প্রচ্ছদ' : 'Home',
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: article.category,
+        item: `${SITE_URL}/${locale}/category/${article.category}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: `${SITE_URL}/${locale}/article/${slug}`,
+      },
+    ],
+  };
+
   return (
-    <main className={styles.container}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <main className={styles.container}>
       <div className={styles.layout}>
         {/* Left Column - Main Content */}
         <div className={styles.mainContent}>
@@ -117,5 +235,6 @@ export default async function ArticlePage({ params }) {
         </aside>
       </div>
     </main>
+    </>
   );
 }

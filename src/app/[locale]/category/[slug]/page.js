@@ -6,6 +6,48 @@ import ArticleCard from '@/components/ui/ArticleCard';
 import dbConnect from '@/lib/dbConnect';
 import Article from '@/models/Article';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://thepoliticst.com';
+
+export async function generateMetadata({ params }) {
+  const { slug, locale } = await params;
+  const t = await getTranslations('Navigation');
+  const translationKey = slug.replace('-', '_');
+
+  let categoryName = slug;
+  try {
+    categoryName = t(translationKey);
+  } catch (error) {
+    categoryName = slug.charAt(0).toUpperCase() + slug.slice(1);
+  }
+
+  const isBn = locale === 'bn';
+  const title = isBn ? `${categoryName} সম্পর্কিত খবর` : `${categoryName} News`;
+  const description = isBn
+    ? `দ্য পলিটিক্সটে ${categoryName} বিভাগের সর্বশেষ সংবাদ ও খবরাখবর পড়ুন।`
+    : `Read the latest ${categoryName} news and updates on The Politicst.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/category/${slug}`,
+      languages: {
+        'bn-BD': `/bn/category/${slug}`,
+        'en-US': `/en/category/${slug}`,
+      },
+    },
+    openGraph: {
+      title: `${title} | The Politicst`,
+      description,
+      url: `/${locale}/category/${slug}`,
+    },
+    twitter: {
+      title: `${title} | The Politicst`,
+      description,
+    },
+  };
+}
+
 async function getArticlesByCategory(category) {
   await dbConnect();
   const articles = await Article.find({ category }).sort({ publishedAt: -1 }).lean();
@@ -38,19 +80,49 @@ export default async function CategoryPage({ params }) {
   const middleArticles = articles.slice(2, 6);
   const listArticles = articles.slice(6);
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: locale === 'bn' ? 'প্রচ্ছদ' : 'Home',
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: categoryTitle,
+        item: `${SITE_URL}/${locale}/category/${slug}`,
+      },
+    ],
+  };
+
   if (articles.length === 0) {
     return (
-      <main className={styles.container}>
-        <div className={styles.categoryHeader}>
-          <h1 className={styles.categoryTitle}>{categoryTitle}</h1>
-        </div>
-        <p style={{ textAlign: 'center', padding: '50px', fontSize: '18px', color: '#666' }}>No articles found for this category.</p>
-      </main>
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+        <main className={styles.container}>
+          <div className={styles.categoryHeader}>
+            <h1 className={styles.categoryTitle}>{categoryTitle}</h1>
+          </div>
+          <p style={{ textAlign: 'center', padding: '50px', fontSize: '18px', color: '#666' }}>No articles found for this category.</p>
+        </main>
+      </>
     );
   }
 
   return (
-    <main className={styles.container}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <main className={styles.container}>
       {/* Category Header */}
       <div className={styles.categoryHeader}>
         <h1 className={styles.categoryTitle}>{categoryTitle}</h1>
@@ -100,5 +172,6 @@ export default async function CategoryPage({ params }) {
         </div>
       )}
     </main>
+    </>
   );
 }

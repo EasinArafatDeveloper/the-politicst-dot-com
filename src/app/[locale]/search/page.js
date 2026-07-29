@@ -3,6 +3,19 @@ import dbConnect from '@/lib/dbConnect';
 import Article from '@/models/Article';
 import ArticleCard from '@/components/ui/ArticleCard';
 
+export async function generateMetadata({ searchParams }) {
+  const resolvedSearchParams = await searchParams;
+  const q = resolvedSearchParams?.q || '';
+
+  return {
+    title: q ? `Search: ${q}` : 'Search News',
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
+}
+
 export default async function SearchPage({ params, searchParams }) {
   const { locale } = await params;
   const resolvedSearchParams = await searchParams;

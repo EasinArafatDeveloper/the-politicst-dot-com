@@ -4,10 +4,16 @@ export async function POST(req) {
   try {
     const { username, password } = await req.json();
 
-    const adminUser = process.env.ADMIN_USER || 'admin';
-    const adminPassword = process.env.ADMIN_PASSWORD || 'admin';
+    const cleanUsername = (username || '').trim();
+    const cleanPassword = (password || '').trim();
 
-    if (username === adminUser && password === adminPassword) {
+    const adminUser = (process.env.ADMIN_USER || 'admin').trim();
+    const adminPassword = (process.env.ADMIN_PASSWORD || 'admin').trim();
+
+    if (
+      cleanUsername.toLowerCase() === adminUser.toLowerCase() &&
+      cleanPassword === adminPassword
+    ) {
       // Create response with redirect or success
       const response = NextResponse.json({ success: true, message: 'Login successful' });
       

@@ -3,21 +3,17 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function AdminLogin({ sessionExpired }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(sessionExpired ? 'Your session has expired (24 hours passed). Please sign in again.' : '');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   
-  // Try to use translations if they exist, otherwise fallback
-  let t;
-  try {
-    t = useTranslations('Admin');
-  } catch (e) {
-    t = (key) => key;
-  }
+  const t = useTranslations('Admin');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -97,6 +93,9 @@ export default function AdminLogin({ sessionExpired }) {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck="false"
               style={{
                 width: '100%',
                 padding: '10px 12px',
@@ -114,23 +113,49 @@ export default function AdminLogin({ sessionExpired }) {
             <label htmlFor="password" style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
               Password
             </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              style={{
-                width: '100%',
-                padding: '10px 12px',
-                border: '1px solid #d1d5db',
-                borderRadius: '6px',
-                fontSize: '14px',
-                outline: 'none',
-                transition: 'border-color 0.15s ease-in-out'
-              }}
-              placeholder="••••••••"
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck="false"
+                style={{
+                  width: '100%',
+                  padding: '10px 42px 10px 12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  outline: 'none',
+                  transition: 'border-color 0.15s ease-in-out'
+                }}
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: '#6b7280',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '4px'
+                }}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
 
           <button

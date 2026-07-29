@@ -15,6 +15,37 @@ import HalfWidthCategoryGrid from '@/components/home/HalfWidthCategoryGrid';
 
 export const dynamic = 'force-dynamic';
 
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const isBn = locale === 'bn';
+
+  const title = isBn ? 'সর্বশেষ ও গুরুত্বপূর্ণ সংবাদ' : 'Latest & Breaking News';
+  const description = isBn
+    ? 'বাংলাদেশ ও বিশ্বের রাজনীতি, জাতীয়, অর্থনীতি, খেলাধুলা, ও বিনোদনের সর্বশেষ বস্তুনিষ্ঠ খবর পড়তে চোখ রাখুন দ্য পলিটিক্সটে।'
+    : 'Read the latest national, international, politics, sports, economy, and entertainment news on The Politicst.';
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        'bn-BD': '/bn',
+        'en-US': '/en',
+      },
+    },
+    openGraph: {
+      title: `${title} | ${isBn ? 'দ্য পলিটিক্সট' : 'The Politicst'}`,
+      description,
+      url: `/${locale}`,
+    },
+    twitter: {
+      title: `${title} | ${isBn ? 'দ্য পলিটিক্সট' : 'The Politicst'}`,
+      description,
+    },
+  };
+}
+
 async function getArticles() {
   await dbConnect();
   // Fetch all articles, sort by newest
