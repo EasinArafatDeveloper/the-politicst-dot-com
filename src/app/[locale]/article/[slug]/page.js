@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import ArticleCard from '@/components/ui/ArticleCard';
 import ClientImage from '@/components/ui/ClientImage';
-import { Share2 } from 'lucide-react';
+import ShareButtons from '@/components/ui/ShareButtons';
 import dbConnect from '@/lib/dbConnect';
 import Article from '@/models/Article';
 
@@ -196,9 +196,7 @@ export default async function ArticlePage({ params }) {
               <span className={styles.date}>{formattedDate}</span>
               <span className={styles.views} style={{marginLeft: '15px', color: '#666', fontSize: '14px'}}>{article.views} Views</span>
             </div>
-            <button className={styles.shareButton} aria-label="Share">
-              <Share2 size={18} />
-            </button>
+            <ShareButtons title={article.title} locale={locale} />
           </div>
 
           <div className={styles.imageContainer}>
@@ -209,6 +207,8 @@ export default async function ArticlePage({ params }) {
             className={styles.articleBody} 
             dangerouslySetInnerHTML={{ __html: article.content.replace(/\n/g, '<br/>') }} 
           />
+
+          <ShareButtons title={article.title} locale={locale} variant="full" />
 
           {relatedArticles.length > 0 && (
             <div className={styles.relatedSection}>

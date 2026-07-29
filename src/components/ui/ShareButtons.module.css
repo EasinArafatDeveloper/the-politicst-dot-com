@@ -1,0 +1,212 @@
+.shareWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shareButton {
+  background: var(--secondary, #f1f5f9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--foreground, #1e293b);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.shareButton:hover {
+  background: var(--primary, #001a4d);
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-1px);
+}
+
+.copiedState {
+  background: #f0fdf4 !important;
+  border-color: #bbf7d0 !important;
+}
+
+.activeMenu {
+  background: var(--primary, #001a4d);
+  color: #ffffff;
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 210px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+  z-index: 100;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.closeBtn:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: background 0.15s ease;
+  text-align: left;
+}
+
+.menuItem:hover {
+  background: #f8fafc;
+  color: #111827;
+}
+
+.menuIconCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Full Share Container (Bottom Section) */
+.fullShareContainer {
+  margin: 32px 0 24px 0;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.shareLabel {
+  font-weight: 700;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.socialButtonsGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #ffffff;
+}
+
+.iconBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.copyBtn {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.copyBtn.copied {
+  background: #16a34a;
+}
+
+.facebookBtn {
+  background: #1877f2;
+}
+
+.whatsappBtn {
+  background: #25d366;
+}
+
+.twitterBtn {
+  background: #000000;
+}
+
+@media (max-width: 640px) {
+  .fullShareContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .btnText {
+    display: inline;
+  }
+}
