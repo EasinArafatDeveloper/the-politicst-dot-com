@@ -13,7 +13,7 @@ export default function ShareButtons({ title = '', locale = 'bn', variant = 'com
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setCurrentUrl(window.location.href);
+      setCurrentUrl(window.location.href.trim());
     }
   }, []);
 
@@ -33,8 +33,8 @@ export default function ShareButtons({ title = '', locale = 'bn', variant = 'com
   }, [showMenu]);
 
   const getUrl = () => {
-    if (typeof window !== 'undefined') {
-      return window.location.href;
+    if (typeof window !== 'undefined' && window.location.href) {
+      return window.location.href.trim();
     }
     return currentUrl;
   };
@@ -42,14 +42,19 @@ export default function ShareButtons({ title = '', locale = 'bn', variant = 'com
   const handleCopyLink = async (e) => {
     if (e) e.stopPropagation();
     const urlToCopy = getUrl();
-    
+    if (!urlToCopy) return;
+
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(urlToCopy);
       } else {
         const textArea = document.createElement('textarea');
         textArea.value = urlToCopy;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '-9999px';
         document.body.appendChild(textArea);
+        textArea.focus();
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
@@ -82,7 +87,8 @@ export default function ShareButtons({ title = '', locale = 'bn', variant = 'com
   };
 
   const openSocialShare = (platform) => {
-    const url = encodeURIComponent(getUrl());
+    const rawUrl = getUrl();
+    const url = encodeURIComponent(rawUrl);
     const encodedTitle = encodeURIComponent(title);
     let shareUrl = '';
 
@@ -91,7 +97,7 @@ export default function ShareButtons({ title = '', locale = 'bn', variant = 'com
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
         break;
       case 'whatsapp':
-        shareUrl = `https://api.whatsapp.com/send?text=${encodedTitle}%20${url}`;
+        shareUrl = `https://api.whatsapp.com/send?text=${encodedTitle}%0A%0A${url}`;
         break;
       case 'twitter':
         shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${encodedTitle}`;

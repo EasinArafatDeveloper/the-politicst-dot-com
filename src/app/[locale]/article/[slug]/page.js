@@ -8,7 +8,7 @@ import ShareButtons from '@/components/ui/ShareButtons';
 import dbConnect from '@/lib/dbConnect';
 import Article from '@/models/Article';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://thepoliticst.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || 'https://thepoliticst.netlify.app';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,6 +30,7 @@ export async function generateMetadata({ params }) {
   const description = excerpt.replace(/<[^>]*>?/gm, '').slice(0, 160);
   const imageUrl = rawArticle.imageUrl || `${SITE_URL}/favicon.ico`;
   const authorName = rawArticle.author || 'The Politicst Desk';
+  const articleUrl = `${SITE_URL}/${locale}/article/${slug}`;
 
   return {
     title,
@@ -37,16 +38,16 @@ export async function generateMetadata({ params }) {
     authors: [{ name: authorName }],
     keywords: [rawArticle.category, 'The Politicst', 'News', title],
     alternates: {
-      canonical: `/${locale}/article/${slug}`,
+      canonical: articleUrl,
       languages: {
-        'bn-BD': `/bn/article/${slug}`,
-        'en-US': `/en/article/${slug}`,
+        'bn-BD': `${SITE_URL}/bn/article/${slug}`,
+        'en-US': `${SITE_URL}/en/article/${slug}`,
       },
     },
     openGraph: {
       title: `${title} | The Politicst`,
       description,
-      url: `/${locale}/article/${slug}`,
+      url: articleUrl,
       type: 'article',
       publishedTime: rawArticle.publishedAt ? new Date(rawArticle.publishedAt).toISOString() : undefined,
       modifiedTime: rawArticle.updatedAt ? new Date(rawArticle.updatedAt).toISOString() : (rawArticle.publishedAt ? new Date(rawArticle.publishedAt).toISOString() : undefined),
